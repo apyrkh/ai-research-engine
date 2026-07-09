@@ -8,8 +8,31 @@ export interface ChatInputPanelProps {
   onSubmit: (topic: string) => void;
 }
 
+interface SuggestedPrompt {
+  readonly label: string;
+  readonly prompt: string;
+}
+
+const SUGGESTED_PROMPTS: readonly SuggestedPrompt[] = [
+  {
+    label: "Macros & Weight Loss",
+    prompt:
+      "Explain how Macros (Protein, Carbs, Fats) affect weight loss. Keep it concise, scientific, and format it as a bulleted list (one short sentence per macro).",
+  },
+  {
+    label: "Low-Carb vs Low-Fat Diets",
+    prompt:
+      "Comparative effectiveness of low-carbohydrate vs. low-fat diets over a 12+ month horizon: Analyzing contradictions in meta-analyses.",
+  },
+  {
+    label: "Sleep & Shift Work",
+    prompt:
+      "What interventions are most effective for improving sleep quality in night-shift healthcare workers?",
+  },
+];
+
 export function ChatInputPanel({ status, onSubmit }: ChatInputPanelProps) {
-  const [topic, setTopic] = useState("");
+  const [topic, setTopic] = useState<string>("");
   const isBusy = status === "connecting" || status === "streaming";
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -17,6 +40,7 @@ export function ChatInputPanel({ status, onSubmit }: ChatInputPanelProps) {
     const trimmed = topic.trim();
     if (trimmed.length === 0 || isBusy) return;
     onSubmit(trimmed);
+    setTopic("");
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
@@ -27,7 +51,21 @@ export function ChatInputPanel({ status, onSubmit }: ChatInputPanelProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2 border-t border-slate-800 p-4">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3 border-t border-slate-800 p-4">
+      <div className="flex flex-wrap gap-2">
+        {SUGGESTED_PROMPTS.map((suggestion) => (
+          <button
+            key={suggestion.label}
+            type="button"
+            disabled={isBusy}
+            onClick={() => setTopic(suggestion.prompt)}
+            className="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 text-xs text-slate-300 transition-colors hover:border-clinical-cyan hover:text-clinical-cyan disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {suggestion.label}
+          </button>
+        ))}
+      </div>
+
       <textarea
         value={topic}
         onChange={(event) => setTopic(event.target.value)}

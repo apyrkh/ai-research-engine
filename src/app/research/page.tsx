@@ -1,20 +1,18 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { useResearchStream } from "@/hooks/useResearchStream";
 import { GraphVisualizer } from "@/components/GraphVisualizer";
 import { LogPanel } from "@/components/LogPanel";
 import { ChatInputPanel } from "@/components/ChatInputPanel";
 import { ReportViewer } from "@/components/ReportViewer";
+import { ActiveQueryHeader } from "@/components/ActiveQueryHeader";
 import type { RightPanelTab } from "@/lib/types/research";
 
 export default function ResearchPage() {
-  const { status, steps, errorMessage, finalReport, graphState, submit } = useResearchStream();
+  const { status, steps, errorMessage, finalReport, graphState, activeQuery, submit } =
+    useResearchStream();
   const [activeTab, setActiveTab] = useState<RightPanelTab>("log");
-
-  useEffect(() => {
-    if (status === "done") setActiveTab("report");
-  }, [status]);
 
   function handleSubmit(topic: string) {
     setActiveTab("log");
@@ -60,6 +58,7 @@ export default function ResearchPage() {
           <div className="flex-1 overflow-auto p-6">
             {activeTab === "log" ? (
               <>
+                {activeQuery && <ActiveQueryHeader query={activeQuery} />}
                 {errorMessage && (
                   <p className="mb-4 rounded-md border border-clinical-collision/50 bg-clinical-collision/10 px-3 py-2 text-sm text-clinical-collision">
                     {errorMessage}

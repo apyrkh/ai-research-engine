@@ -54,6 +54,7 @@ export interface UseResearchStreamResult {
   errorMessage: string | null;
   finalReport: string | null;
   graphState: DerivedGraphState;
+  activeQuery: string | null;
   submit: (topic: string) => void;
   reset: () => void;
 }
@@ -62,6 +63,7 @@ export function useResearchStream(): UseResearchStreamResult {
   const [steps, setSteps] = useState<ResearchLogStep[]>([]);
   const [status, setStatus] = useState<StreamStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [activeQuery, setActiveQuery] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const stepCountRef = useRef(0);
 
@@ -167,6 +169,7 @@ export function useResearchStream(): UseResearchStreamResult {
       setSteps([]);
       setErrorMessage(null);
       setStatus("connecting");
+      setActiveQuery(topic);
 
       void runStream(topic, controller.signal);
     },
@@ -179,6 +182,7 @@ export function useResearchStream(): UseResearchStreamResult {
     setSteps([]);
     setErrorMessage(null);
     setStatus("idle");
+    setActiveQuery(null);
   }, []);
 
   const finalReport = useMemo(() => {
@@ -190,5 +194,5 @@ export function useResearchStream(): UseResearchStreamResult {
 
   const graphState = useMemo(() => deriveGraphState(steps, status), [steps, status]);
 
-  return { status, steps, errorMessage, finalReport, graphState, submit, reset };
+  return { status, steps, errorMessage, finalReport, graphState, activeQuery, submit, reset };
 }
