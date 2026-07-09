@@ -20,15 +20,15 @@ export default function ResearchPage() {
   }
 
   return (
-    <div className="flex flex-1 flex-col bg-clinical-bg">
-      <header className="border-b border-slate-800 px-6 py-4">
+    <div className="flex h-full min-h-0 flex-1 flex-col bg-clinical-bg">
+      <header className="shrink-0 border-b border-slate-800 px-6 py-4">
         <h1 className="text-lg font-semibold tracking-tight text-slate-100">Research Engine</h1>
       </header>
 
-      <div className="grid flex-1 grid-cols-1 divide-y divide-slate-800 lg:grid-cols-2 lg:divide-x lg:divide-y-0">
-        {/* Left column */}
-        <div className="flex flex-col">
-          <section className="flex-1 overflow-auto p-6">
+      <div className="grid min-h-0 flex-1 grid-cols-1 divide-y divide-slate-800 lg:grid-cols-2 lg:divide-x lg:divide-y-0">
+        {/* Left column: graph fills available space, input panel pinned to the bottom */}
+        <div className="flex min-h-0 flex-col">
+          <section className="min-h-0 flex-1 overflow-y-auto p-6">
             <h2 className="mb-4 text-sm font-medium uppercase tracking-wide text-slate-400">
               Live Graph Visualization
             </h2>
@@ -38,12 +38,14 @@ export default function ResearchPage() {
               conflictNodes={graphState.conflictNodes}
             />
           </section>
-          <ChatInputPanel status={status} onSubmit={handleSubmit} />
+          <div className="shrink-0 border-t border-slate-800">
+            <ChatInputPanel status={status} onSubmit={handleSubmit} />
+          </div>
         </div>
 
-        {/* Right column */}
-        <div className="flex flex-col overflow-hidden">
-          <div className="flex border-b border-slate-800">
+        {/* Right column: independently scrollable, never affects the left column's layout */}
+        <div className="flex min-h-0 flex-col overflow-hidden">
+          <div className="flex shrink-0 border-b border-slate-800">
             <TabButton active={activeTab === "log"} onClick={() => setActiveTab("log")}>
               Execution Log
             </TabButton>
@@ -55,7 +57,7 @@ export default function ResearchPage() {
             </TabButton>
           </div>
 
-          <div className="flex-1 overflow-auto p-6">
+          <div className="min-h-0 flex-1 overflow-y-auto p-6">
             {activeTab === "log" ? (
               <>
                 {activeQuery && <ActiveQueryHeader query={activeQuery} />}

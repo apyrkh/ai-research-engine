@@ -47,6 +47,12 @@
 
 ## Phase 4: Verification & Deployment
 - [x] Task 4.1: End-to-end local validation of full pipeline execution.
+- [x] Task 4.1a: Fix layout bug where switching right-panel tabs (Execution Log
+  / Final Report) reflowed and repositioned the prompt input panel. The left
+  column is now a fixed-height flex-col (graph `flex-1 overflow-y-auto`, input
+  panel `shrink-0` pinned beneath it) and the right column scrolls
+  independently (`min-h-0 flex-1 overflow-y-auto`), so neither column's height
+  depends on the other's content.
 - [x] Task 4.2: Deploy to Vercel and verify Edge Stream behavior under live
   environment.
 
