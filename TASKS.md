@@ -24,12 +24,12 @@
   AI client with OpenAI fallback.
 
 ## Phase 3: Frontend Dashboard & Component Binding
-- [ ] Task 3.1: Create two-column layout shell for /research.
-- [ ] Task 3.2: Build dynamic Inline SVG Graph Component using the custom
+- [x] Task 3.1: Create two-column layout shell for /research.
+- [x] Task 3.2: Build dynamic Inline SVG Graph Component using the custom
   medical color states.
-- [ ] Task 3.3: Implement Interactive Log Panel with expanding accordions
+- [x] Task 3.3: Implement Interactive Log Panel with expanding accordions
   mapped to streamed SSE events.
-- [ ] Task 3.4: Connect Chat Input control panel to trigger the real HTTP
+- [x] Task 3.4: Connect Chat Input control panel to trigger the real HTTP
   stream execution.
 
 ## Phase 4: Verification & Deployment
