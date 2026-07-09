@@ -14,12 +14,12 @@
   only local builds.
 
 ## Phase 2: Backend Architecture (LangGraph + Edge Streaming)
-- [ ] Task 2.1: Implement core LangGraph State schema and node signatures
+- [x] Task 2.1: Implement core LangGraph State schema and node signatures
   (fetch_sources, quality_filter, critic_analysis, resolve_conflict,
   generate_report).
-- [ ] Task 2.2: Implement routing logic (conditional edges) based on data
+- [x] Task 2.2: Implement routing logic (conditional edges) based on data
   contradictions.
-- [ ] Task 2.3: Create Next.js API Route Handler (/api/research) running on
+- [x] Task 2.3: Create Next.js API Route Handler (/api/research) running on
   Edge Runtime, streaming live LangGraph state changes via SSE. Set up Google
   AI client with OpenAI fallback.
 
