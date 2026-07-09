@@ -6,8 +6,12 @@
 - [x] Task 1.2: Define the medical color palette constants in
   tailwind.config.ts (Slate-900 baseline, Clinical Cyan/Teal for states,
   Surgical Green for success, Medical Amber/Red for collisions).
-- [ ] Task 1.3: Commit SPEC.md, CLAUDE.md, and this updated TASKS.md to the
+- [x] Task 1.3: Commit SPEC.md, CLAUDE.md, and this updated TASKS.md to the
   repository root.
+- [ ] Task 1.4: Perform an initial Vercel deployment (`vercel link` +
+  `vercel deploy`) of the current scaffold to establish a live preview URL
+  early, so subsequent phases can be tracked against real deploys instead of
+  only local builds.
 
 ## Phase 2: Backend Architecture (LangGraph + Edge Streaming)
 - [ ] Task 2.1: Implement core LangGraph State schema and node signatures
