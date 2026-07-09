@@ -8,7 +8,7 @@
   Surgical Green for success, Medical Amber/Red for collisions).
 - [x] Task 1.3: Commit SPEC.md, CLAUDE.md, and this updated TASKS.md to the
   repository root.
-- [ ] Task 1.4: Perform an initial Vercel deployment (`vercel link` +
+- [x] Task 1.4: Perform an initial Vercel deployment (`vercel link` +
   `vercel deploy`) of the current scaffold to establish a live preview URL
   early, so subsequent phases can be tracked against real deploys instead of
   only local builds.
