@@ -4,6 +4,8 @@ A production-ready Proof of Concept (PoC) demonstrating deterministic
 multi-agent scientific literature analysis powered by Next.js 15+ and
 LangGraph.
 
+**Live demo:** https://ai-research-engine-beta.vercel.app
+
 ## The Core Problem & Solution
 
 Traditional LLM wrappers and chat interfaces are fundamentally
@@ -36,11 +38,13 @@ that:
 The pipeline is modeled as a stateful graph where each node updates a
 centralized, structured research state:
 
+```
 [Start] -> fetch_sources -> quality_filter -> critic_analysis
                                                    |
                                         (Contradictions Found?)
                                          |-- Yes -> resolve_conflict --|
                                          |-- No  ----------------------┴──> generate_report -> [End]
+```
 
 ### Execution Nodes:
 - fetch_sources: Ingests clinical inputs and pulls raw literature text blocks.

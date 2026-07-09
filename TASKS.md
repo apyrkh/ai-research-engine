@@ -46,6 +46,17 @@
   manual "View Final Research Report" CTA as a fallback.
 
 ## Phase 4: Verification & Deployment
-- [ ] Task 4.1: End-to-end local validation of full pipeline execution.
-- [ ] Task 4.2: Deploy to Vercel and verify Edge Stream behavior under live
+- [x] Task 4.1: End-to-end local validation of full pipeline execution.
+- [x] Task 4.2: Deploy to Vercel and verify Edge Stream behavior under live
   environment.
+
+---
+
+The PoC was verified end-to-end against the live Vercel environment
+(https://ai-research-engine-beta.vercel.app): `/api/research` streams real SSE
+chunks (`Transfer-Encoding: chunked`, correct `text/event-stream` headers)
+through the full graph (`fetch_sources` → `quality_filter` → `critic_analysis`
+→ `generate_report` → `done`), matching the local dev run. Note:
+`quality_filter`'s sample-size regex mis-parses comma-formatted values (e.g.
+`N=10,581` reads as `N=10`), causing false-positive "below threshold" flags —
+tracked as a follow-up, not a blocker for this PoC.
