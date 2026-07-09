@@ -6,6 +6,24 @@
   --color-clinical-teal: #0d9488;
   --color-clinical-success: #10b981;
   --color-clinical-collision: #ef4444;
+  --animate-node-glow: node-glow 1.5s ease-in-out infinite;
+}
+
+/* Border-color blink + outer glow only. Fill and text are never touched by
+   this animation, so the node's label always stays 100% solid/readable —
+   only the stroke (border) opacity and its glow (drop-shadow is the SVG
+   equivalent of box-shadow; box-shadow itself doesn't reliably apply to
+   SVG shapes) breathe. */
+@keyframes node-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px currentColor);
+    stroke-opacity: 0.55;
+  }
+  50% {
+    filter: drop-shadow(0 0 10px currentColor) drop-shadow(0 0 20px currentColor);
+    stroke-opacity: 1;
+  }
 }
 
 body {

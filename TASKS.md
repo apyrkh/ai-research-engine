@@ -32,6 +32,19 @@
 - [x] Task 3.4: Connect Chat Input control panel to trigger the real HTTP
   stream execution.
 
+### Phase 3 Optimization Patch: Clinical-grade UX Polish
+- [x] Task 3.5: Replace the flat opacity pulse on the active SVG node with a
+  continuous glow/blink animation (clinical-cyan for active, clinical-collision
+  for conflict-flagged nodes).
+- [x] Task 3.6: Refactor the Execution Log to show plain-language, non-technical
+  descriptions per node (including a live "running" row inferred from stream
+  state before the next node's event arrives) with status icons (spinner /
+  success / warning), hiding raw JSON behind a per-row "View Technical Details"
+  toggle.
+- [x] Task 3.7: Replace the stacked Execution Log + Final Report layout with a
+  tabbed right panel that auto-switches to the Report tab on completion, with a
+  manual "View Final Research Report" CTA as a fallback.
+
 ## Phase 4: Verification & Deployment
 - [ ] Task 4.1: End-to-end local validation of full pipeline execution.
 - [ ] Task 4.2: Deploy to Vercel and verify Edge Stream behavior under live

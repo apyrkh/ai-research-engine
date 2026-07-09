@@ -1,6 +1,6 @@
 "use client";
 
-import { RESEARCH_NODES, type ResearchNodeId } from "@/lib/types/research";
+import { NODE_LABELS, RESEARCH_NODES, type ResearchNodeId } from "@/lib/types/research";
 
 export interface GraphVisualizerProps {
   activeNode: ResearchNodeId | null;
@@ -9,14 +9,6 @@ export interface GraphVisualizerProps {
 }
 
 type VisualState = "idle" | "active" | "completed" | "conflict";
-
-const NODE_LABELS: Record<ResearchNodeId, string> = {
-  fetch_sources: "Fetch Sources",
-  quality_filter: "Quality Filter",
-  critic_analysis: "Critic Analysis",
-  resolve_conflict: "Resolve Conflict",
-  generate_report: "Generate Report",
-};
 
 const NODE_LAYOUT: Record<ResearchNodeId, { x: number; y: number }> = {
   fetch_sources: { x: 20, y: 142 },
@@ -29,11 +21,32 @@ const NODE_LAYOUT: Record<ResearchNodeId, { x: number; y: number }> = {
 const NODE_WIDTH = 150;
 const NODE_HEIGHT = 56;
 
-const VISUAL_STATE_CLASSES: Record<VisualState, { fill: string; stroke: string; extra: string }> = {
-  idle: { fill: "fill-slate-800", stroke: "stroke-slate-600", extra: "" },
-  active: { fill: "fill-slate-800", stroke: "stroke-clinical-cyan", extra: "animate-pulse" },
-  completed: { fill: "fill-slate-800", stroke: "stroke-clinical-success", extra: "" },
-  conflict: { fill: "fill-slate-800", stroke: "stroke-clinical-collision", extra: "" },
+const VISUAL_STATE_CLASSES: Record<
+  VisualState,
+  { fill: string; stroke: string; text: string; extra: string; strokeWidth: number }
+> = {
+  idle: { fill: "fill-slate-800", stroke: "stroke-slate-600", text: "", extra: "", strokeWidth: 2 },
+  active: {
+    fill: "fill-slate-800",
+    stroke: "stroke-clinical-cyan",
+    text: "text-clinical-cyan",
+    extra: "animate-node-glow",
+    strokeWidth: 3,
+  },
+  completed: {
+    fill: "fill-slate-800",
+    stroke: "stroke-clinical-success",
+    text: "text-clinical-success",
+    extra: "",
+    strokeWidth: 2,
+  },
+  conflict: {
+    fill: "fill-slate-800",
+    stroke: "stroke-clinical-collision",
+    text: "text-clinical-collision",
+    extra: "animate-node-glow",
+    strokeWidth: 3,
+  },
 };
 
 function getVisualState(node: ResearchNodeId, props: GraphVisualizerProps): VisualState {
@@ -142,8 +155,8 @@ export function GraphVisualizer(props: GraphVisualizerProps) {
               width={NODE_WIDTH}
               height={NODE_HEIGHT}
               rx={8}
-              strokeWidth={2}
-              className={`${classes.fill} ${classes.stroke} ${classes.extra} transition-colors`}
+              strokeWidth={classes.strokeWidth}
+              className={`${classes.fill} ${classes.stroke} ${classes.text} ${classes.extra} transition-colors`}
             />
             <text
               x={cx}

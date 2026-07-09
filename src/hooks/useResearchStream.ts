@@ -9,6 +9,7 @@ import {
   type ResearchStreamEvent,
   type StreamStatus,
 } from "@/lib/types/research";
+import { getPendingNode } from "@/lib/graph/pipeline";
 
 export interface DerivedGraphState {
   activeNode: ResearchNodeId | null;
@@ -21,13 +22,15 @@ function deriveGraphState(steps: ResearchLogStep[], status: StreamStatus): Deriv
     (step): step is ResearchLogStep & { node: ResearchNodeId } => isResearchNodeId(step.node)
   );
 
-  const activeNode =
-    status === "streaming" && nodeSteps.length > 0 ? nodeSteps[nodeSteps.length - 1].node : null;
+  // activeNode is the node currently in flight (inferred, since the backend
+  // only emits completion events — see getPendingNode), not the last one
+  // that already reported in. This is what makes the very first node
+  // (fetch_sources) glow immediately on submit instead of only after it
+  // finishes.
+  const isRunning = status === "connecting" || status === "streaming";
+  const activeNode = isRunning ? getPendingNode(nodeSteps) : null;
 
-  const completedNodes = new Set<ResearchNodeId>();
-  for (const step of nodeSteps) {
-    if (step.node !== activeNode) completedNodes.add(step.node);
-  }
+  const completedNodes = new Set<ResearchNodeId>(nodeSteps.map((step) => step.node));
 
   const conflictNodes = new Set<ResearchNodeId>();
   for (const step of nodeSteps) {

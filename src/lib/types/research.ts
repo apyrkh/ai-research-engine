@@ -46,3 +46,15 @@ export type StreamStatus = "idle" | "connecting" | "streaming" | "done" | "error
 export function isResearchNodeId(node: string): node is ResearchNodeId {
   return (RESEARCH_NODES as readonly string[]).includes(node);
 }
+
+export const NODE_LABELS: Record<ResearchNodeId, string> = {
+  fetch_sources: "Fetch Sources",
+  quality_filter: "Quality Filter",
+  critic_analysis: "Critic Analysis",
+  resolve_conflict: "Resolve Conflict",
+  generate_report: "Generate Report",
+};
+
+// The right-hand panel of /research is a two-tab view: the live execution
+// log, and the final Markdown report once generate_report completes.
+export type RightPanelTab = "log" | "report";
