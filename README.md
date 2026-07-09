@@ -70,6 +70,17 @@ OPENAI_API_KEY=your_key_here
 
 Open http://localhost:3000/research to access the interactive dashboard.
 
+## Deployment (Vercel)
+
+Install the Vercel CLI globally:
+
+    npm install -g vercel
+
+Then link and deploy:
+
+    vercel link
+    vercel deploy
+
 ## AI Assistant Instructions Before modifying any files in this repository, AI
 agents must read and strictly adhere to the guidelines specified in CLAUDE.md
 and track progress via TASKS.md.
