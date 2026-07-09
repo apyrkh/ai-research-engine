@@ -8,7 +8,7 @@ export interface GraphVisualizerProps {
   conflictNodes: ReadonlySet<ResearchNodeId>;
 }
 
-type VisualState = "idle" | "active" | "completed" | "conflict";
+type VisualState = "idle" | "active" | "active-conflict" | "completed" | "completed-conflict";
 
 const NODE_LAYOUT: Record<ResearchNodeId, { x: number; y: number }> = {
   fetch_sources: { x: 20, y: 142 },
@@ -33,6 +33,13 @@ const VISUAL_STATE_CLASSES: Record<
     extra: "animate-node-glow",
     strokeWidth: 3,
   },
+  "active-conflict": {
+    fill: "fill-slate-800",
+    stroke: "stroke-clinical-collision",
+    text: "text-clinical-collision",
+    extra: "animate-node-glow",
+    strokeWidth: 3,
+  },
   completed: {
     fill: "fill-slate-800",
     stroke: "stroke-clinical-success",
@@ -40,20 +47,25 @@ const VISUAL_STATE_CLASSES: Record<
     extra: "",
     strokeWidth: 2,
   },
-  conflict: {
+  "completed-conflict": {
     fill: "fill-slate-800",
     stroke: "stroke-clinical-collision",
     text: "text-clinical-collision",
-    extra: "animate-node-glow",
-    strokeWidth: 3,
+    extra: "",
+    strokeWidth: 2,
   },
 };
 
 function getVisualState(node: ResearchNodeId, props: GraphVisualizerProps): VisualState {
   const isConflictCapable = node === "critic_analysis" || node === "resolve_conflict";
-  if (isConflictCapable && props.conflictNodes.has(node)) return "conflict";
-  if (props.activeNode === node) return "active";
-  if (props.completedNodes.has(node)) return "completed";
+  const isConflict = isConflictCapable && props.conflictNodes.has(node);
+
+  // The animated glow ("active"/"active-conflict") is reserved for the node
+  // currently in flight. Once the run moves on (or finishes), a
+  // conflict-flagged node still reads as red, but statically — it should
+  // never keep blinking after it's no longer the active step.
+  if (props.activeNode === node) return isConflict ? "active-conflict" : "active";
+  if (props.completedNodes.has(node)) return isConflict ? "completed-conflict" : "completed";
   return "idle";
 }
 
