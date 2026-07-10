@@ -2,18 +2,18 @@
 
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { useResearchStream } from "@/hooks/useResearchStream";
-import { GraphVisualizer } from "@/components/GraphVisualizer";
-import { LogPanel } from "@/components/LogPanel";
+import { useAnalyzeStream } from "@/hooks/useAnalyzeStream";
+import { AnalyzeGraphVisualizer } from "@/components/AnalyzeGraphVisualizer";
+import { AnalyzeLogPanel } from "@/components/AnalyzeLogPanel";
 import { ChatInputPanel } from "@/components/ChatInputPanel";
 import { ReportViewer } from "@/components/ReportViewer";
 import { ActiveQueryHeader } from "@/components/ActiveQueryHeader";
 import { SiteNav } from "@/components/SiteNav";
-import type { RightPanelTab } from "@/lib/types/research";
+import type { RightPanelTab } from "@/lib/types/analyze";
 
-export default function ResearchPage() {
+export default function AnalyzePage() {
   const { status, steps, errorMessage, finalReport, graphState, activeQuery, submit } =
-    useResearchStream();
+    useAnalyzeStream();
   const [activeTab, setActiveTab] = useState<RightPanelTab>("log");
 
   function handleSubmit(topic: string) {
@@ -40,10 +40,9 @@ export default function ResearchPage() {
             <h2 className="mb-4 text-sm font-medium uppercase tracking-wide text-slate-400">
               Live Graph Visualization
             </h2>
-            <GraphVisualizer
+            <AnalyzeGraphVisualizer
               activeNode={graphState.activeNode}
               completedNodes={graphState.completedNodes}
-              conflictNodes={graphState.conflictNodes}
             />
           </section>
           <div className="shrink-0 border-t border-slate-800">
@@ -74,14 +73,14 @@ export default function ResearchPage() {
                     {errorMessage}
                   </p>
                 )}
-                <LogPanel steps={steps} status={status} />
+                <AnalyzeLogPanel steps={steps} status={status} />
                 {finalReport && (
                   <button
                     type="button"
                     onClick={() => setActiveTab("report")}
                     className="mt-4 w-full rounded-md bg-clinical-teal px-4 py-2 text-sm font-medium text-slate-50 transition-colors hover:bg-clinical-teal/90"
                   >
-                    View Final Research Report →
+                    View Final Analysis Report →
                   </button>
                 )}
               </>

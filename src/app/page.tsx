@@ -8,12 +8,20 @@ export default function Home() {
         A deterministic multi-agent research workflow engine with live graph state
         visualization.
       </p>
-      <Link
-        href="/research"
-        className="rounded-md bg-clinical-teal px-5 py-2.5 text-sm font-medium text-slate-50 transition-colors hover:bg-clinical-teal/90"
-      >
-        Open Research Dashboard →
-      </Link>
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        <Link
+          href="/analyze"
+          className="rounded-md bg-clinical-teal px-5 py-2.5 text-sm font-medium text-slate-50 transition-colors hover:bg-clinical-teal/90"
+        >
+          Open Analysis Dashboard →
+        </Link>
+        <Link
+          href="/research"
+          className="rounded-md bg-clinical-teal px-5 py-2.5 text-sm font-medium text-slate-50 transition-colors hover:bg-clinical-teal/90"
+        >
+          Open Research Dashboard →
+        </Link>
+      </div>
     </div>
   );
 }
